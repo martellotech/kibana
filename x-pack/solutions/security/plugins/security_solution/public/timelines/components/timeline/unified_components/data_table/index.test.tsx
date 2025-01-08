@@ -15,7 +15,7 @@ import { useSourcererDataView } from '../../../../../sourcerer/containers';
 import type { ComponentProps } from 'react';
 import { getColumnHeaders } from '../../body/column_headers/helpers';
 import { mockSourcererScope } from '../../../../../sourcerer/containers/mocks';
-import * as timelineActions from '../../../../store/actions';
+import { timelineActions } from '../../../../store';
 import { useExpandableFlyoutApi } from '@kbn/expandable-flyout';
 import { defaultUdtHeaders } from '../../body/column_headers/default_headers';
 
@@ -31,11 +31,9 @@ jest.mock('react-router-dom', () => ({
 
 const onFieldEditedMock = jest.fn();
 const refetchMock = jest.fn();
-const onFetchMoreRecordsMock = jest.fn();
+const onChangePageMock = jest.fn();
 
 const openFlyoutMock = jest.fn();
-
-const updateSampleSizeSpy = jest.spyOn(timelineActions, 'updateSampleSize');
 
 jest.mock('@kbn/expandable-flyout');
 
@@ -74,7 +72,7 @@ const TestComponent = (props: TestComponentProps) => {
         refetch={refetchMock}
         dataLoadingState={DataLoadingState.loaded}
         totalCount={mockTimelineData.length}
-        onFetchMoreRecords={onFetchMoreRecordsMock}
+        onFetchMoreRecords={onChangePageMock}
         updatedAt={Date.now()}
         onSetColumns={jest.fn()}
         onFilter={jest.fn()}
@@ -99,7 +97,6 @@ describe('unified data table', () => {
     });
   });
   afterEach(() => {
-    updateSampleSizeSpy.mockClear();
     jest.clearAllMocks();
   });
 
@@ -202,7 +199,7 @@ describe('unified data table', () => {
   });
 
   it(
-    'should update sample size correctly',
+    'should refetch on sample size change',
     async () => {
       render(<TestComponent />);
 
@@ -220,11 +217,8 @@ describe('unified data table', () => {
         target: { value: '10' },
       });
 
-      updateSampleSizeSpy.mockClear();
-
       await waitFor(() => {
-        expect(updateSampleSizeSpy).toHaveBeenCalledTimes(1);
-        expect(updateSampleSizeSpy).toHaveBeenCalledWith({ id: TimelineId.test, sampleSize: 10 });
+        expect(refetchMock).toHaveBeenCalledTimes(1);
       });
     },
     SPECIAL_TEST_TIMEOUT
@@ -321,7 +315,7 @@ describe('unified data table', () => {
         expect(screen.getByTestId('dscGridSampleSizeFetchMoreLink')).toBeVisible();
         fireEvent.click(screen.getByTestId('dscGridSampleSizeFetchMoreLink'));
         await waitFor(() => {
-          expect(onFetchMoreRecordsMock).toHaveBeenCalledTimes(1);
+          expect(onChangePageMock).toHaveBeenNthCalledWith(1, 1);
         });
       },
       SPECIAL_TEST_TIMEOUT

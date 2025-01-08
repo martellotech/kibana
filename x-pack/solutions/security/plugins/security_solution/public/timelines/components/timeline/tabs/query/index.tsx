@@ -173,22 +173,24 @@ export const QueryTabContentComponent: React.FC<Props> = ({
   const { augmentedColumnHeaders, defaultColumns, timelineQueryFieldsFromColumns } =
     useTimelineColumns(columns);
 
-  const [dataLoadingState, { events, inspect, totalCount, loadNextBatch, refreshedAt, refetch }] =
-    useTimelineEvents({
-      dataViewId,
-      endDate: end,
-      fields: timelineQueryFieldsFromColumns,
-      filterQuery: combinedQueries?.filterQuery,
-      id: timelineId,
-      indexNames: selectedPatterns,
-      language: kqlQuery.language,
-      limit: sampleSize,
-      runtimeMappings: sourcererDataView.runtimeFieldMap as RunTimeMappings,
-      skip: !canQueryTimeline,
-      sort: timelineQuerySortField,
-      startDate: start,
-      timerangeKind,
-    });
+  const [
+    dataLoadingState,
+    { events, inspect, totalCount, loadPage: loadNextEventBatch, refreshedAt, refetch },
+  ] = useTimelineEvents({
+    dataViewId,
+    endDate: end,
+    fields: timelineQueryFieldsFromColumns,
+    filterQuery: combinedQueries?.filterQuery,
+    id: timelineId,
+    indexNames: selectedPatterns,
+    language: kqlQuery.language,
+    limit: sampleSize,
+    runtimeMappings: sourcererDataView.runtimeFieldMap as RunTimeMappings,
+    skip: !canQueryTimeline,
+    sort: timelineQuerySortField,
+    startDate: start,
+    timerangeKind,
+  });
 
   const { onLoad: loadNotesOnEventsLoad } = useFetchNotes();
 
@@ -381,7 +383,7 @@ export const QueryTabContentComponent: React.FC<Props> = ({
         dataLoadingState={dataLoadingState}
         totalCount={isBlankTimeline ? 0 : totalCount}
         leadingControlColumns={leadingControlColumns as EuiDataGridControlColumn[]}
-        onFetchMoreRecords={loadNextBatch}
+        onFetchMoreRecords={loadNextEventBatch}
         activeTab={activeTab}
         updatedAt={refreshedAt}
         isTextBasedQuery={false}

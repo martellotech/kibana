@@ -105,7 +105,7 @@ export const EqlTabContentComponent: React.FC<Props> = ({
     [end, isBlankTimeline, loadingSourcerer, start]
   );
 
-  const [dataLoadingState, { events, inspect, totalCount, loadNextBatch, refreshedAt, refetch }] =
+  const [dataLoadingState, { events, inspect, totalCount, loadPage, refreshedAt, refetch }] =
     useTimelineEvents({
       dataViewId,
       endDate: end,
@@ -289,7 +289,7 @@ export const EqlTabContentComponent: React.FC<Props> = ({
           refetch={refetch}
           dataLoadingState={dataLoadingState}
           totalCount={isBlankTimeline ? 0 : totalCount}
-          onFetchMoreRecords={loadNextBatch}
+          onFetchMoreRecords={loadPage}
           activeTab={activeTab}
           updatedAt={refreshedAt}
           isTextBasedQuery={false}
