@@ -2332,25 +2332,21 @@
   resolved "https://registry.yarnpkg.com/@elastic/eslint-plugin-eui/-/eslint-plugin-eui-0.0.2.tgz#56b9ef03984a05cc213772ae3713ea8ef47b0314"
   integrity sha512-IoxURM5zraoQ7C8f+mJb9HYSENiZGgRVcG4tLQxE61yHNNRDXtGDWTZh8N1KIHcsqN1CEPETjuzBXkJYF/fDiQ==
 
-"@elastic/eui-theme-borealis@0.0.9":
+"@elastic/eui-theme-borealis@file:./elastic_eui_theme_borealis_0.0.9_button_POC_01.tgz":
   version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-borealis/-/eui-theme-borealis-0.0.9.tgz#6aea79b15091e84235555236726f1bb1fc0da2bf"
-  integrity sha512-56tzAX5Go4RuSD1fuKvHiLPumGll1NYK1dG4E9OPe7xfLXBGdLjhdXabkJfUlc5OVX2xK9RI3TOmUiimqm8SJg==
+  resolved "file:./elastic_eui_theme_borealis_0.0.9_button_POC_01.tgz#ce59b8609993fc05dc952051a8059b9b3e71b7e9"
 
-"@elastic/eui-theme-common@0.0.9":
+"@elastic/eui-theme-common@file:./elastic_eui_theme_common_0.0.9_button_POC_01.tgz":
   version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@elastic/eui-theme-common/-/eui-theme-common-0.0.9.tgz#42d4f15b6d8dd9f8976eb3f2d46fd59af3f37a9c"
-  integrity sha512-nmeqi+gZruBQtDOirPIGgZh0QejrlmeZixKaaM/iQca5rQiTNHAE29sSpGFk20+//yfiDPQMFee7PQU/A4R4Ow==
+  resolved "file:./elastic_eui_theme_common_0.0.9_button_POC_01.tgz#8d54d72a6d5015fe10a804edc3ebedfe04d70591"
   dependencies:
     "@types/lodash" "^4.14.202"
     lodash "^4.17.21"
 
-"@elastic/eui@99.1.0-borealis.0":
+"@elastic/eui@file:./elastic_eui_99.1.0_borealis.0_button_POC_01.tgz":
   version "99.1.0-borealis.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-99.1.0-borealis.0.tgz#b5b34c749ac56b8ecd290fb715f56ba2e5f255ab"
-  integrity sha512-akDYl5ScBNwBm1sIsPHQVPq5rJpkgjg5Qtb2F1T36eWFp9ux5EVAqoFylsLBIaUnXiwVDkDAVH604IOrR46COg==
+  resolved "file:./elastic_eui_99.1.0_borealis.0_button_POC_01.tgz#e7630a8f50391fd34438fc2e62d83fdb94c2a033"
   dependencies:
-    "@elastic/eui-theme-common" "0.0.9"
     "@hello-pangea/dnd" "^16.6.0"
     "@types/lodash" "^4.14.202"
     "@types/numeral" "^2.0.5"
