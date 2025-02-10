@@ -2332,20 +2332,20 @@
   resolved "https://registry.yarnpkg.com/@elastic/eslint-plugin-eui/-/eslint-plugin-eui-0.0.2.tgz#56b9ef03984a05cc213772ae3713ea8ef47b0314"
   integrity sha512-IoxURM5zraoQ7C8f+mJb9HYSENiZGgRVcG4tLQxE61yHNNRDXtGDWTZh8N1KIHcsqN1CEPETjuzBXkJYF/fDiQ==
 
-"@elastic/eui-theme-borealis@file:./elastic_eui_theme_borealis_0.0.9_button_POC_01.tgz":
+"@elastic/eui-theme-borealis@file:./elastic_eui_theme_borealis_0.0.9_button_poc_01.tgz":
   version "0.0.9"
-  resolved "file:./elastic_eui_theme_borealis_0.0.9_button_POC_01.tgz#ce59b8609993fc05dc952051a8059b9b3e71b7e9"
+  resolved "file:./elastic_eui_theme_borealis_0.0.9_button_poc_01.tgz#ce59b8609993fc05dc952051a8059b9b3e71b7e9"
 
-"@elastic/eui-theme-common@file:./elastic_eui_theme_common_0.0.9_button_POC_01.tgz":
+"@elastic/eui-theme-common@file:./elastic_eui_theme_common_0.0.9_button_poc_01.tgz":
   version "0.0.9"
-  resolved "file:./elastic_eui_theme_common_0.0.9_button_POC_01.tgz#8d54d72a6d5015fe10a804edc3ebedfe04d70591"
+  resolved "file:./elastic_eui_theme_common_0.0.9_button_poc_01.tgz#8d54d72a6d5015fe10a804edc3ebedfe04d70591"
   dependencies:
     "@types/lodash" "^4.14.202"
     lodash "^4.17.21"
 
-"@elastic/eui@file:./elastic_eui_99.1.0_borealis.0_button_POC_01.tgz":
+"@elastic/eui@file:./elastic_eui_99.1.0_borealis.0_button_poc_04.tgz":
   version "99.1.0-borealis.0"
-  resolved "file:./elastic_eui_99.1.0_borealis.0_button_POC_01.tgz#e7630a8f50391fd34438fc2e62d83fdb94c2a033"
+  resolved "file:./elastic_eui_99.1.0_borealis.0_button_poc_04.tgz#2138349dfcfa18c7c31bcff96df3da700bb51029"
   dependencies:
     "@hello-pangea/dnd" "^16.6.0"
     "@types/lodash" "^4.14.202"
