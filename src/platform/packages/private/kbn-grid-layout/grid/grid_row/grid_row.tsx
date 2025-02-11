@@ -8,8 +8,9 @@
  */
 
 import { cloneDeep } from 'lodash';
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
-import { map, pairwise, skip, combineLatest } from 'rxjs';
+import React, { useEffect, useState } from 'react';
+import { combineLatest, distinctUntilChanged, map, pairwise, skip } from 'rxjs';
+
 import { css } from '@emotion/react';
 
 import { DragPreview } from '../drag_preview';
@@ -27,28 +28,15 @@ export interface GridRowProps {
   gridLayoutStateManager: GridLayoutStateManager;
 }
 
-export const GridRow = forwardRef<HTMLDivElement, GridRowProps>(
-  ({ rowIndex, renderPanelContents, gridLayoutStateManager }, gridRef) => {
+export const GridRow = React.memo(
+  ({ rowIndex, renderPanelContents, gridLayoutStateManager }: GridRowProps) => {
     const currentRow = gridLayoutStateManager.gridLayout$.value[rowIndex];
 
-    const [panelIds, setPanelIds] = useState<string[]>(Object.keys(currentRow.panels));
     const [panelIdsInOrder, setPanelIdsInOrder] = useState<string[]>(() =>
       getKeysInOrder(currentRow.panels)
     );
     const [rowTitle, setRowTitle] = useState<string>(currentRow.title);
     const [isCollapsed, setIsCollapsed] = useState<boolean>(currentRow.isCollapsed);
-
-    const rowContainer = useRef<HTMLDivElement | null>(null);
-
-    /** Set initial styles based on state at mount to prevent styles from "blipping" */
-    const initialStyles = useMemo(() => {
-      const { columnCount } = gridLayoutStateManager.runtimeSettings$.getValue();
-      return css`
-        grid-auto-rows: calc(var(--kbnGridRowHeight) * 1px);
-        grid-template-columns: repeat(${columnCount}, minmax(0, 1fr));
-        gap: calc(var(--kbnGridGutterSize) * 1px);
-      `;
-    }, [gridLayoutStateManager]);
 
     useEffect(
       () => {
@@ -99,7 +87,6 @@ export const GridRow = forwardRef<HTMLDivElement, GridRowProps>(
                 newRowData.panelIds.every((p) => oldRowData.panelIds.includes(p))
               )
             ) {
-              setPanelIds(newRowData.panelIds);
               setPanelIdsInOrder(
                 getKeysInOrder(
                   (gridLayoutStateManager.proposedGridLayout$.getValue() ??
@@ -123,51 +110,30 @@ export const GridRow = forwardRef<HTMLDivElement, GridRowProps>(
           }
         );
 
+        const columnCountSubscription = gridLayoutStateManager.runtimeSettings$
+          .pipe(
+            map(({ columnCount }) => columnCount),
+            distinctUntilChanged()
+          )
+          .subscribe((columnCount) => {
+            const rowRef = gridLayoutStateManager.rowRefs.current[rowIndex];
+            if (!rowRef) return;
+            rowRef.style.setProperty('--kbnGridRowColumnCount', `${columnCount}`);
+          });
+
         return () => {
           interactionStyleSubscription.unsubscribe();
           gridLayoutSubscription.unsubscribe();
           rowStateSubscription.unsubscribe();
+          columnCountSubscription.unsubscribe();
         };
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [rowIndex]
     );
 
-    /**
-     * Memoize panel children components (independent of their order) to prevent unnecessary re-renders
-     */
-    const children: { [panelId: string]: React.ReactNode } = useMemo(() => {
-      return panelIds.reduce(
-        (prev, panelId) => ({
-          ...prev,
-          [panelId]: (
-            <GridPanel
-              key={panelId}
-              panelId={panelId}
-              rowIndex={rowIndex}
-              gridLayoutStateManager={gridLayoutStateManager}
-              renderPanelContents={renderPanelContents}
-              ref={(element) => {
-                if (!gridLayoutStateManager.panelRefs.current[rowIndex]) {
-                  gridLayoutStateManager.panelRefs.current[rowIndex] = {};
-                }
-                gridLayoutStateManager.panelRefs.current[rowIndex][panelId] = element;
-              }}
-            />
-          ),
-        }),
-        {}
-      );
-    }, [panelIds, gridLayoutStateManager, renderPanelContents, rowIndex]);
-
     return (
-      <div
-        ref={rowContainer}
-        css={css`
-          height: 100%;
-        `}
-        className="kbnGridRowContainer"
-      >
+      <div css={styles.fullHeight} className="kbnGridRowContainer">
         {rowIndex !== 0 && (
           <GridRowHeader
             isCollapsed={isCollapsed}
@@ -182,18 +148,21 @@ export const GridRow = forwardRef<HTMLDivElement, GridRowProps>(
         {!isCollapsed && (
           <div
             className={'kbnGridRow'}
-            ref={gridRef}
-            css={css`
-              height: 100%;
-              display: grid;
-              position: relative;
-              justify-items: stretch;
-              transition: background-color 300ms linear;
-              ${initialStyles};
-            `}
+            ref={(element: HTMLDivElement | null) =>
+              (gridLayoutStateManager.rowRefs.current[rowIndex] = element)
+            }
+            css={[styles.fullHeight, styles.grid]}
           >
             {/* render the panels **in order** for accessibility, using the memoized panel components */}
-            {panelIdsInOrder.map((panelId) => children[panelId])}
+            {panelIdsInOrder.map((panelId) => (
+              <GridPanel
+                key={panelId}
+                panelId={panelId}
+                rowIndex={rowIndex}
+                gridLayoutStateManager={gridLayoutStateManager}
+                renderPanelContents={renderPanelContents}
+              />
+            ))}
             <DragPreview rowIndex={rowIndex} gridLayoutStateManager={gridLayoutStateManager} />
           </div>
         )}
@@ -201,3 +170,25 @@ export const GridRow = forwardRef<HTMLDivElement, GridRowProps>(
     );
   }
 );
+
+const styles = {
+  fullHeight: css({
+    height: '100%',
+  }),
+  grid: css({
+    position: 'relative',
+    justifyItems: 'stretch',
+    display: 'grid',
+    gap: 'calc(var(--kbnGridGutterSize) * 1px)',
+    gridAutoRows: 'calc(var(--kbnGridRowHeight) * 1px)',
+    gridTemplateColumns: `repeat(
+          var(--kbnGridRowColumnCount),
+          calc(
+            (100% - (var(--kbnGridGutterSize) * (var(--kbnGridRowColumnCount) - 1) * 1px)) /
+              var(--kbnGridRowColumnCount)
+          )
+        )`,
+  }),
+};
+
+GridRow.displayName = 'KbnGridLayoutRow';

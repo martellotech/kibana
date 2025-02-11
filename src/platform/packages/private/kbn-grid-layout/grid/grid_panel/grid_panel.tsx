@@ -7,7 +7,7 @@
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
 
-import React, { forwardRef, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { combineLatest, skip } from 'rxjs';
 
 import { useEuiTheme } from '@elastic/eui';
@@ -27,8 +27,8 @@ export interface GridPanelProps {
   gridLayoutStateManager: GridLayoutStateManager;
 }
 
-export const GridPanel = forwardRef<HTMLDivElement, GridPanelProps>(
-  ({ panelId, rowIndex, renderPanelContents, gridLayoutStateManager }, panelRef) => {
+export const GridPanel = React.memo(
+  ({ panelId, rowIndex, renderPanelContents, gridLayoutStateManager }: GridPanelProps) => {
     const [dragHandleApi, setDragHandleApi] = useState<DragHandleApi | null>(null);
     const { euiTheme } = useEuiTheme();
 
@@ -161,7 +161,16 @@ export const GridPanel = forwardRef<HTMLDivElement, GridPanelProps>(
     }, [panelId, renderPanelContents, dragHandleApi]);
 
     return (
-      <div ref={panelRef} css={initialStyles} className="kbnGridPanel">
+      <div
+        ref={(element) => {
+          if (!gridLayoutStateManager.panelRefs.current[rowIndex]) {
+            gridLayoutStateManager.panelRefs.current[rowIndex] = {};
+          }
+          gridLayoutStateManager.panelRefs.current[rowIndex][panelId] = element;
+        }}
+        css={initialStyles}
+        className="kbnGridPanel"
+      >
         <DragHandle
           ref={setDragHandleApi}
           gridLayoutStateManager={gridLayoutStateManager}
@@ -178,3 +187,5 @@ export const GridPanel = forwardRef<HTMLDivElement, GridPanelProps>(
     );
   }
 );
+
+GridPanel.displayName = 'KbnGridLayoutPanel';
