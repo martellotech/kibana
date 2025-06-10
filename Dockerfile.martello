@@ -1,5 +1,7 @@
-FROM docker.elastic.co/kibana/kibana:7.17.28-amd64
+ARG VERSION=7.17.28
+FROM docker.elastic.co/kibana/kibana:${VERSION}-amd64
+ARG VERSION
 COPY config/kibana.yml /usr/share/kibana/config/kibana.yml
-COPY plugins/kibana_pendo/build/kibanaPendo-7.17.28.zip /usr/share/kibana/
-RUN bin/kibana-plugin install file:///usr/share/kibana/kibanaPendo-7.17.28.zip
-RUN rm /usr/share/kibana/kibanaPendo-7.17.28.zip
+COPY plugins/kibana_pendo/build/kibanaPendo-${VERSION}.zip /usr/share/kibana/
+RUN bin/kibana-plugin install file:///usr/share/kibana/kibanaPendo-${VERSION}.zip
+RUN rm /usr/share/kibana/kibanaPendo-${VERSION}.zip
