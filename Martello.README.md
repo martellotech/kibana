@@ -40,7 +40,7 @@ Delete the .git folder and the gitignore file in the newly created plugin so tha
 navigate to your plugin folder
 run the following:
 `nvm use`
-`yarn build`
+`yarn build --kibana-version 7.17.28`
 
 # Docker container
 `docker build -f Dockerfile.martello -t kibana-martello .`

@@ -1,2 +1,13 @@
 server.host: 0.0.0.0
-csp.rules: ["script-src 'self' 'unsafe-eval' blob: https://*.pendo.io wss://*.pendo.io https://*.storage.googleapis.com https://feeds.elastic.co"]
+csp.rules: ["script-src 'self' 'unsafe-eval' blob: https://*.pendo.io wss://*.pendo.io https://*.storage.googleapis.com https://feeds.elastic.co https://*.tile.openstreetmap.org"]
+xpack.security.sameSiteCookies: None
+xpack.security.authc.providers:
+  oidc.vdx:
+   order: 0
+   realm: vdx
+   description: 'Log in with Vantage DX'
+   #icon: 'https://devqa.vdxdev.mtlo.ca/auth/resources/wnxgc/login/Vantage%20DX/img/martello-logo.svg'
+  basic.basic:
+   order: 1
+vis_type_vega.enableExternalUrls: true
+xpack.reporting.roles.enabled: false

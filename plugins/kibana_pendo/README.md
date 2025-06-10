@@ -4,7 +4,7 @@ Plugin that allows us to run pendo inside the kibana iframe
 ## Build
 run the following:
 `nvm use`
-`yarn build`
+`yarn build --kibana-version 7.17.28`
 
 
 ## Development
