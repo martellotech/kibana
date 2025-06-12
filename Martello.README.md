@@ -40,10 +40,12 @@ Delete the .git folder and the gitignore file in the newly created plugin so tha
 navigate to your plugin folder
 run the following:
 `nvm use`
-`yarn build`
+`yarn build --kibana-version 7.17.28`
 
 # Docker container
 `docker build -f Dockerfile.martello -t kibana-martello .`
+
+You can specify a version to build for with the "--build-arg VERSION=7.17.28" tag
 
 To build a production version of the container see run the following commands: 
 `docker login cbmtdev.azurecr.io`

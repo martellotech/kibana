@@ -1,7 +1,0 @@
-{
-  "prefix": "kibanaPendo",
-  "paths": {
-    "kibanaPendo": "."
-  },
-  "translations": ["translations/ja-JP.json"]
-}

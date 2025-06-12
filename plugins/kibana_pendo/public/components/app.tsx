@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FormattedMessage, I18nProvider } from '@kbn/i18n/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import {
@@ -51,7 +50,7 @@ export const KibanaPendoApp = ({
     setReady("" + window.pendo?.isReady());
     setUser("" + window.pendo?.visitorId);
     setAccount("" + window.pendo?.accountId)
-    setApiKey(window.pendo?.apiKey.substring(0,6) + "...");
+    setApiKey(window.pendo?.apiKey?.substring(0,6) + "...");
     setLastUpdated("" + new Date().toISOString());
   };
 
@@ -85,7 +84,6 @@ export const KibanaPendoApp = ({
   // Note that `navigation.ui.TopNavMenu` is a stateful component exported on the `navigation` plugin's start contract.
   return (
     <Router basename={basename}>
-      <I18nProvider>
         <>
           <navigation.ui.TopNavMenu
             appName={PLUGIN_ID.toLowerCase()}
@@ -113,18 +111,18 @@ export const KibanaPendoApp = ({
                     <p>Updated: {lastUpdated}</p>
                     <EuiHorizontalRule />
                     <EuiButton type="primary" size="s" onClick={onClickHandler}>
-                      <FormattedMessage id="kibanaPendo.buttonText" defaultMessage="Get Status" />
+                      Get Status
                     </EuiButton>
                     <EuiHorizontalRule />
                     <EuiFlexGroup>
                       <EuiFlexItem grow={false}>
                         <EuiButton type="primary" size="s" onClick={onClickHandlerGetUrl}>
-                          <FormattedMessage id="kibanaPendo.buttonText" defaultMessage="Copy Plugin Url" />
+                          Copy Plugin Url
                         </EuiButton>
                       </EuiFlexItem>
                       <EuiFlexItem grow={false}>
                       <EuiButton type="primary" size="s" onClick={onClickHandlerGetDashboardUrl}>
-                        <FormattedMessage id="kibanaPendo.buttonText" defaultMessage="Copy Dashboard Url" />
+                        Copy Dashboard Url
                       </EuiButton>
                       </EuiFlexItem>
                     </EuiFlexGroup>
@@ -134,7 +132,6 @@ export const KibanaPendoApp = ({
             </EuiPageBody>
           </EuiPage>
         </>
-      </I18nProvider>
     </Router>
   );
 };
