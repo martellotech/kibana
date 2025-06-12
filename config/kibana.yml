@@ -6,7 +6,7 @@ xpack.security.authc.providers:
    order: 0
    realm: vdx
    description: 'Log in with Vantage DX'
-   #icon: 'https://devqa.vdxdev.mtlo.ca/auth/resources/wnxgc/login/Vantage%20DX/img/martello-logo.svg'
+   icon: 'https://static.martellotech.com/icons/martello.png'
   basic.basic:
    order: 1
 vis_type_vega.enableExternalUrls: true
