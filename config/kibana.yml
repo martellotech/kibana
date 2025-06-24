@@ -1,13 +1,16 @@
 server.host: 0.0.0.0
-csp.default_src: ["script-src 'self' 'unsafe-eval' blob: https://*.pendo.io wss://*.pendo.io https://*.storage.googleapis.com https://feeds.elastic.co https://*.tile.openstreetmap.org"]
+csp.script_src: ["'self' 'unsafe-eval' blob: https://*.pendo.io wss://*.pendo.io https://*.storage.googleapis.com https://feeds.elastic.co https://*.tile.openstreetmap.org"]
 xpack.security.sameSiteCookies: None
 xpack.security.authc.providers:
   oidc.vdx:
-   order: 0
-   realm: vdx
-   description: 'Log in with Vantage DX'
-   icon: 'https://static.martellotech.com/icons/martello.png'
+    order: 0
+    realm: vdx
+    description: 'Log in with Vantage DX'
+    icon: 'https://static.martellotech.com/icons/martello.png'
+  token.token1:
+    order: 1
+    description: 'Log in with service-account token'
   basic.basic:
-   order: 1
+    order: 2
 vis_type_vega.enableExternalUrls: true
 xpack.reporting.roles.enabled: false
