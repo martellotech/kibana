@@ -48,10 +48,10 @@ run the following:
 You can specify a version to build for with the "--build-arg VERSION=7.17.28" tag
 
 To build a production version of the container see run the following commands: 
-`docker login cbmtdev.azurecr.io`
+`docker login vdxdev.azurecr.io`
 `docker build -f Dockerfile.martello -t kibana-martello .`
-`docker tag kibana-martello cbmtdev.azurecr.io/kibana-martello:0.x`
-`docker push cbmtdev.azurecr.io/kibana-martello:0.x`
+`docker tag kibana-martello vdxdev.azurecr.io/kibana-martello:8.18.2.x`
+`docker push vdxdev.azurecr.io/kibana-martello:8.18.2.x`
 
 a full guide is available here:
 https://portal.azure.com/#@gsx.com/resource/subscriptions/a548cb3d-0887-4b87-8460-6bf34967538b/resourceGroups/cbmtdev-shared/providers/Microsoft.ContainerRegistry/registries/cbmtdev/quickStart
