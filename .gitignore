@@ -52,9 +52,12 @@ __tmp__
 /x-pack/test_serverless/*/screenshots/visual_regression_gallery.html
 /x-pack/test_serverless/functional/apps/*/*/reporting/reports/failure
 
+#Ignore build folders for all plugins
+/plugins/*/build
+/plugins/*/target
+
 /html_docs
 .eslintcache
-/plugins/
 /data
 disabledPlugins
 webpackstats.json
