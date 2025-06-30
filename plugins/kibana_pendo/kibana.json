@@ -1,0 +1,14 @@
+{
+  "id": "kibanaPendo",
+  "version": "1.0.0",
+  "kibanaVersion": "kibana",
+  "owner": {
+    "name": "James Ford",
+    "githubTeam": ""
+  },
+  "description": "Runs Pendo in kibana",
+  "server": false,
+  "ui": true,
+  "requiredPlugins": ["navigation"],
+  "optionalPlugins": []
+}
