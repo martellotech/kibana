@@ -3,11 +3,11 @@ csp.script_src: ["'self' 'unsafe-eval' blob: https://*.pendo.io wss://*.pendo.io
 xpack.security.sameSiteCookies: None
 xpack.security.authc.providers:
   oidc.vdx:
-    order: 1
+    order: 0
     realm: vdx
     description: 'Log in with Vantage DX'
     icon: 'https://static.martellotech.com/icons/martello.png'
   basic.basic1:
-    order: 0
+    order: 1
 vis_type_vega.enableExternalUrls: true
 xpack.reporting.roles.enabled: false
