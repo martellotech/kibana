@@ -86,25 +86,33 @@ function areAnalyticsEnabled() {
 }
 
 export const setupPendo = () => {
-  var user = getUser();
-  var account = getAccount();
-  if (areAnalyticsEnabled() && window.pendo) {
-    window.pendo.initialize({
-      apiKey: API_KEY,
-      visitor: {
-        id: user.id,
-        email: user.email,
-        firstName: user.firstname,
-        lastName: user.lastname,
-        role: user.role,
-        country: user.country,
-        region: user.region,
-        city: user.city
-      },
-      account: {
-        id: account.id,
-        accountName: account.accountName
-      }
-    });
+  try {
+    var user = getUser();
+    var account = getAccount();
+    if (areAnalyticsEnabled() && window.pendo) {
+      window.pendo.initialize({
+        apiKey: API_KEY,
+        visitor: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstname,
+          lastName: user.lastname,
+          role: user.role,
+          country: user.country,
+          region: user.region,
+          city: user.city
+        },
+        account: {
+          id: account.id,
+          accountName: account.accountName
+        }
+      });
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error(error);
+    }
   }
 }
