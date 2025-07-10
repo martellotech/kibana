@@ -48,6 +48,7 @@ run the following:
 You can specify a version to build for with the "--build-arg VERSION=8.18.2" tag
 
 To build a production version of the container see run the following commands: 
+`az login`
 `az acr login --name vdxdev`
 `docker build -f Dockerfile.martello -t kibana-martello .`
 `docker tag kibana-martello vdxdev.azurecr.io/kibana-martello:8.18.2.x`
