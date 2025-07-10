@@ -1,6 +1,6 @@
 server.host: 0.0.0.0
 csp.script_src: ["'self' 'unsafe-eval' blob: https://*.pendo.io wss://*.pendo.io https://*.storage.googleapis.com https://feeds.elastic.co https://*.tile.openstreetmap.org"]
-csp.img_src: ["https://static.martellotech.com"]
+csp.img_src: ["'self' data: https://static.martellotech.com https://*.tile.openstreetmap.org"]
 xpack.security.sameSiteCookies: None
 xpack.security.authc.providers:
   oidc.vdx:
