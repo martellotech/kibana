@@ -44,7 +44,7 @@ export class KibanaPendoPlugin implements Plugin<KibanaPendoPluginSetup, KibanaP
 
 export const loadPendoScript = () => {
   const script = document.createElement('script');
-  script.src = `https://cdn.pendo.io/agent/static/${API_KEY}/pendo.js`;
+  script.src = `https://cdn.eu.pendo.io/agent/static/${API_KEY}/pendo.js`;
   script.async = true;
   document.body.appendChild(script);
 };

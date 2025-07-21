@@ -1,6 +1,6 @@
 server.host: 0.0.0.0
 csp.script_src: ["'self' 'unsafe-eval' blob: https://*.pendo.io wss://*.pendo.io https://*.storage.googleapis.com https://feeds.elastic.co"]
-csp.img_src: ["'self' data: blob: https://static.martellotech.com https://tiles.maps.elastic.co"]
+csp.img_src: ["'self' data: blob: https://static.martellotech.com https://tiles.maps.elastic.co https://*.pendo.io"]
 xpack.security.sameSiteCookies: None
 xpack.security.authc.providers:
   oidc.vdx:
